@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('./partials/head') %>
+
+    <%- include('./partials/header') %>
+        <main class="">
+            <div class="col-12 col-md-8 mx-auto mt-3">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <nav class="breadcrumb mb-0">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Listado Peliculas</li>
+                            </ol>
+                        </nav>
+                        <a href="/movies/add" class="btn btn-outline-dark"> Agregar Pelicula</a>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Titulo</th>
+                                    <th scope="col">Rating</th>
+                                    <th scope="col">Premios</th>
+                                    <th scope="col">Genero</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <% movies.forEach(movie=> { %>
+                                    <tr>
+                                        <th scope="row">
+                                            <%= movie.id %>
+                                        </th>
+                                        <td>
+                                            <%= movie.title %>
+                                        </td>
+                                        <td>
+                                            <%= movie.rating %>
+                                        </td>
+                                        <td>
+                                            <%= movie.awards %>
+                                        </td>
+                                        <td>
+                                            <%= movie.genre?.name %>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <a href="movies/detail/<%= movie.id %>" class="btn btn-outline-dark"><i
+                                                        class="fa-regular fa-eye"></i></a>
+                                                <a href="movies/edit/<%= movie.id %>" class="btn btn-outline-success"><i
+                                                        class="fa-solid fa-pen"></i></a>
+
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-outline-danger"
+                                                    data-bs-toggle="modal" data-bs-target="#movieModal<%= movie.id %>">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="movieModal<%= movie.id %>" tabindex="-1"
+                                                    aria-labelledby="movieModal<%= movie.id %>Label" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5"
+                                                                    id="movieModal<%= movie.id %>Label">Avertencia</h1>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>Está seguro que desea eliminar la película <b>
+                                                                        <%= movie.title %>
+                                                                    </b>?</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-outline-secondary"
+                                                                    data-bs-dismiss="modal">Cancelar</button>
+                                                                    <form action="/movies/delete/<%= movie.id %>?_method=DELETE" method="POST">
+                                                                    <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                                                                    </form>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>

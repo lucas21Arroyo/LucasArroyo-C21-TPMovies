@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('./partials/head') %>
+
+    <body>
+        <%- include('./partials/header') %>
+            <main class="d-flex justify-content-center">
+                <div class="col-12 col-md-10">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/movies">Peliculas</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Editar película</li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="card-body">
+                            <form action="/movies/update/<%= movie.id %>?_method=PUT" method="POST" class="row d-flex" enctype="multipart/form-data">
+                                <div class="mb-3 col-12 col-md-6">
+                                    <label for="title" class="form-label">Titulo</label>
+                                    <input type="text" class="form-control" id="title" value="<%= movie.title %>"
+                                        name="title">
+                                </div>
+                                <div class="mb-3 col-12 col-md-6">
+                                    <label for="rating" class="form-label">Rating</label>
+                                    <input type="number" class="form-control" id="rating" value="<%= movie.rating %>"
+                                        name="rating">
+                                </div>
+                                <div class="mb-3 col-12 col-md-6">
+                                    <label for="awards" class="form-label">Premios</label>
+                                    <input type="number" class="form-control" id="awards" value="<%= movie.awards %>"
+                                        name="awards">
+                                </div>
+                                <div class="mb-3 col-12 col-md-6">
+                                    <label for="release_date" class="form-label">Fecha de estreno</label>
+                                    <input type="date" class="form-control" id="release_date"
+                                        value="<%= moment(movie.release_date).format('YYYY-MM-DD') %>"
+                                        name="release_date">
+                                </div>
+                                <div class="mb-3 col-12 col-md-6">
+                                    <label for="length" class="form-label">Duración</label>
+                                    <input type="number" class="form-control" id="length" value="<%= movie.length %>"
+                                        name="length">
+                                </div>
+                                <div class="mb-3 col-12 col-md-6">
+                                    <label for="genre_id" class="form-label">Género</label>
+                                    <select name="genre_id" class="form-control" id="">
+                                        <% genres.forEach(genre=> { %>
+                                            <option value="<%= genre.id %>" <%=genre.id===movie.genre_id && 'selected'
+                                                %>>
+                                                <%= genre.name %>
+                                            </option>
+                                            <% }); %>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-12">
+                                    <h5 class="form-check">Actores</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <% actors.forEach(actor=> { %>
+                                            <div class="col-12 col-md-3 col-lg-2">
+                                                <div class="form-check">
+                                                    <input name="actors" class="form-check-input" type="checkbox" <%= movie.actors.map(actor => actor.id).includes(actor.id) && 'checked' %> value="<%= actor.id %>" id="actor<%= actor.id %>">
+                                                    <label class="form-check-label" for="actor<%= actor.id %>">
+                                                      <%= actor.first_name %> <%= actor.last_name %>
+                                                    </label>
+                                                  </div>
+                                            </div>
+                                            <% }) %>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-12 d-flex justify-content-end gap-2">
+                                    <label for="image" class="btn btn-outline-success btn-lg">Editar Imagen</label>
+                                    <input type="file" id="image" name="image" class="d-none">
+                                    <button class="btn btn-outline-dark btn-lg">Actualizar</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+    </body>

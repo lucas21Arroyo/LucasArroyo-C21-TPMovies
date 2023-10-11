@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('./partials/head') %>
+
+  <body>
+    <div class="d-flex justify-content-center">
+      <img src="/img/logo-DH.png" style="width: 23%;" alt="Logo Digital House">
+  </div>
+      <main>
+        <h1 class="col-12 mx-2">
+          <%= title %>
+
+        </h1>
+        <hr>
+        <div class="">
+          <h4 class="d-flex justify-content-center">Bienvenidos a <%= title %>
+          </h4>
+
+          <div class="d-flex justify-content-center gap-3">
+              <a class="btn btn-outline-dark p-4" style="font-size: 40px;" href="/movies"><i class="fa-solid fa-film" style="color: #e41c3c; font-size: 80px;"></i>Películas</a>
+              <a class="btn btn-outline-dark p-4" style="font-size: 40px;" href="/genres"><i class="fa-solid fa-masks-theater" style="color: #e41c3c; font-size: 80px;"></i>Géneros</a>
+          </div>
+
+        </div>
+      </main>
+  </body>
+
+</html>
